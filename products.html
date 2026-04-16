@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop All Lighting – Luxarc | Premium Lighting Collection</title>
+  <meta name="description" content="Browse Luxarc's full collection of premium pendant lights, floor lamps, decorative fixtures, architectural lighting and smart lighting solutions." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='%23D4AF37'/></svg>" />
+  <style>
+    /* Products Page Extras */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
+      transition: var(--transition);
+    }
+    .back-link:hover { gap: 14px; }
+    .products-main { padding: 30px 60px 100px; }
+    @media (max-width: 768px) {
+      .products-main { padding: 20px 24px 80px; }
+      .products-controls { flex-direction: column; }
+      .products-banner {
+        padding: 24px;
+        align-items: flex-start;
+      }
+      .sort-bar {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 480px) {
+      .products-main { padding: 20px 16px 64px; }
+      .products-banner { padding: 20px 16px; }
+      #allProductsGrid.list-view .product-card { grid-template-columns: 1fr; }
+      #allProductsGrid.list-view .product-img-wrap { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+      .products-footer { padding: 24px 16px; }
+      .products-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: rgba(248,245,240,0.3);
+    }
+    .no-results .icon { font-size: 3rem; margin-bottom: 16px; display: block; }
+    .no-results p { font-size: 0.9rem; font-weight: 300; }
+    .filter-pills {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .pill {
+      padding: 6px 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border-gold);
+      border-radius: 30px;
+      font-size: 0.72rem; letter-spacing: 0.1em;
+      color: rgba(248,245,240,0.6);
+      cursor: pointer; transition: var(--transition);
+    }
+    .pill:hover, .pill.active {
+      background: var(--gold); color: var(--matte-black);
+      border-color: var(--gold);
+    }
+    .products-banner {
+      background: linear-gradient(135deg, rgba(212,175,55,0.08), transparent);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 30px 40px;
+      margin-bottom: 40px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+    .banner-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .banner-text p {
+      font-size: 0.8rem; color: rgba(248,245,240,0.5);
+    }
+    /* Sort select */
+    .sort-bar {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.75rem; color: rgba(248,245,240,0.4);
+    }
+    .products-footer {
+      padding: 30px 60px;
+    }
+    /* Products grid layout toggle */
+    .layout-toggle { display: flex; gap: 6px; }
+    .layout-btn {
+      width: 32px; height: 32px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border-gold);
+      border-radius: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: rgba(248,245,240,0.5);
+      transition: var(--transition);
+    }
+    .layout-btn.active, .layout-btn:hover {
+      background: var(--gold-dim); border-color: var(--gold); color: var(--gold);
+    }
+    #allProductsGrid.list-view {
+      grid-template-columns: 1fr;
+    }
+    #allProductsGrid.list-view .product-card {
+      display: grid; grid-template-columns: 180px 1fr;
+    }
+    #allProductsGrid.list-view .product-img-wrap {
+      aspect-ratio: 1; border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">Lux<span>arc</span></div>
+  <div class="loader-bar"></div>
+  <div class="loader-text">Loading Collection</div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"></div>
+    <div>
+      <span class="logo-text">Luxarc</span>
+      <span class="logo-tagline">Light Architecture</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#categories">Collections</a></li>
+    <li><a href="products.html" style="color:var(--gold)">Products</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#showroom">Showroom</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Visit Store</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#categories">Collections</a>
+  <a href="products.html">Products</a>
+  <a href="index.html#services">Services</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<!-- ─── PRODUCTS HERO ─── -->
+<div class="products-hero">
+  <p class="section-label" style="justify-content:center; margin-bottom:16px;">The Collection</p>
+  <h1 class="section-title" style="text-align:center; font-size: clamp(2.5rem, 5vw, 4rem);">All <em>Lighting</em></h1>
+  <p style="color:rgba(248,245,240,0.4); text-align:center; margin-top:14px; font-size:0.9rem; font-weight:300; letter-spacing:0.05em;">
+    Curated from the world's finest lighting manufacturers
+  </p>
+</div>
+
+<!-- ─── PRODUCTS MAIN ─── -->
+<div class="products-main container" style="max-width:1300px; margin:0 auto;">
+
+  <!-- Back -->
+  <a href="index.html" class="back-link">← Back to Home</a>
+
+  <!-- Banner -->
+  <div class="products-banner">
+    <div class="banner-text">
+      <h3>✦ New Arrivals Available</h3>
+      <p>Fresh additions to our collection — smart lights, designer pendants & more</p>
+    </div>
+    <a href="index.html#contact" class="btn-primary" style="white-space:nowrap;">Get Expert Advice</a>
+  </div>
+
+  <!-- Category Pills -->
+  <div class="filter-pills" id="filterPills">
+    <span class="pill active" data-cat="all" onclick="setPillFilter('all', this)">All Products</span>
+    <span class="pill" data-cat="pendant" onclick="setPillFilter('pendant', this)">Pendant Lights</span>
+    <span class="pill" data-cat="floor" onclick="setPillFilter('floor', this)">Floor Lamps</span>
+    <span class="pill" data-cat="decorative" onclick="setPillFilter('decorative', this)">Decorative</span>
+    <span class="pill" data-cat="architectural" onclick="setPillFilter('architectural', this)">Architectural</span>
+    <span class="pill" data-cat="smart" onclick="setPillFilter('smart', this)">Smart Lighting</span>
+  </div>
+
+  <!-- Controls Bar -->
+  <div class="products-controls">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for lights, lamps, fixtures..." autocomplete="off" />
+      <span class="search-icon">🔍</span>
+    </div>
+    <select class="filter-select" id="catFilter">
+      <option value="all">All Categories</option>
+      <option value="pendant">Pendant Lights</option>
+      <option value="floor">Floor Lamps</option>
+      <option value="decorative">Decorative</option>
+      <option value="architectural">Architectural</option>
+      <option value="smart">Smart Lighting</option>
+    </select>
+    <select class="filter-select" id="priceFilter">
+      <option value="all">All Prices</option>
+      <option value="under5">Under ₹5,000</option>
+      <option value="5to15">₹5,000 – ₹15,000</option>
+      <option value="above15">Above ₹15,000</option>
+    </select>
+    <select class="filter-select" id="sortFilter" onchange="sortProducts()">
+      <option value="default">Sort: Default</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="name">Name A–Z</option>
+    </select>
+    <div class="sort-bar">
+      <span id="productCount" class="products-count">8 products found</span>
+      <div class="layout-toggle">
+        <button class="layout-btn active" id="gridBtn" onclick="setLayout('grid')" aria-label="Grid view">⊞</button>
+        <button class="layout-btn" id="listBtn" onclick="setLayout('list')" aria-label="List view">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="all-products-grid" id="allProductsGrid">
+    <!-- Populated by JS -->
+  </div>
+
+</div>
+
+<!-- ─── FOOTER MINI ─── -->
+<footer class="products-footer">
+  <div class="products-footer-inner" style="max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <div style="font-family:var(--font-display); font-size:1.2rem; color:var(--white-glow);">Luxarc <span style="color:var(--gold); font-size:0.65rem; letter-spacing:0.2em; vertical-align:middle;">LIGHT ARCHITECTURE</span></div>
+    <p style="font-size:0.72rem; color:rgba(248,245,240,0.3);">© 2025 Luxarc. All rights reserved.</p>
+    <a href="index.html" style="font-size:0.75rem; color:var(--gold); letter-spacing:0.1em;">← Back to Main Site</a>
+  </div>
+</footer>
+
+<!-- ─── PRODUCT MODAL ─── -->
+<div class="modal-overlay" id="productModal" role="dialog" aria-modal="true">
+  <div class="modal-box" style="position:relative;">
+    <div class="modal-img-side"></div>
+    <div class="modal-info">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <p class="modal-product-cat product-cat" style="margin-bottom:8px;">Category</p>
+      <h2 class="modal-product-name" style="font-family:var(--font-display); font-size:1.8rem; font-weight:400; margin-bottom:8px;">Product Name</h2>
+      <p class="modal-product-price product-price" style="font-size:1.6rem; margin-bottom:20px;">₹0</p>
+      <p class="modal-product-desc" style="font-size:0.88rem; color:rgba(248,245,240,0.6); line-height:1.8; margin-bottom:30px;">Description</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn-primary" onclick="closeModal()">Add to Enquiry</button>
+        <a href="tel:+918885891022" class="btn-secondary" style="display:flex;align-items:center;gap:6px;">📞 Call for Price</a>
+      </div>
+      <p style="font-size:0.7rem; color:rgba(248,245,240,0.3); margin-top:16px; letter-spacing:0.05em;">
+        Free delivery · Expert installation available
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Products Page: Pills filter
+  function setPillFilter(cat, el) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    const catFilter = document.getElementById('catFilter');
+    if (catFilter) catFilter.value = cat;
+    filterProducts();
+  }
+
+  // Sort products
+  function sortProducts() {
+    const val = document.getElementById('sortFilter')?.value;
+    const grid = document.getElementById('allProductsGrid');
+    if (!grid) return;
+
+    const cards = [...grid.querySelectorAll('.product-card')];
+    cards.sort((a, b) => {
+      const pa = parseInt(a.dataset.price || 0);
+      const pb = parseInt(b.dataset.price || 0);
+      const na = a.querySelector('.product-name')?.textContent || '';
+      const nb = b.querySelector('.product-name')?.textContent || '';
+      if (val === 'price-asc') return pa - pb;
+      if (val === 'price-desc') return pb - pa;
+      if (val === 'name') return na.localeCompare(nb);
+      return 0;
+    });
+    cards.forEach(c => grid.appendChild(c));
+  }
+
+  // Layout toggle
+  function setLayout(type) {
+    const grid = document.getElementById('allProductsGrid');
+    const gridBtn = document.getElementById('gridBtn');
+    const listBtn = document.getElementById('listBtn');
+    if (type === 'list') {
+      grid?.classList.add('list-view');
+      listBtn?.classList.add('active');
+      gridBtn?.classList.remove('active');
+    } else {
+      grid?.classList.remove('list-view');
+      gridBtn?.classList.add('active');
+      listBtn?.classList.remove('active');
+    }
+  }
+
+  // Handle URL params for category pre-filter
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    if (cat && cat !== 'all') {
+      const catFilter = document.getElementById('catFilter');
+      if (catFilter) catFilter.value = cat;
+      const pill = document.querySelector(`.pill[data-cat="${cat}"]`);
+      if (pill) {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      }
+      filterProducts();
+    }
+  });
+</script>
+</body>
+</html>
