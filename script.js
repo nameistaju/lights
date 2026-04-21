@@ -121,54 +121,48 @@ document.querySelectorAll('.stat-num[data-target]').forEach(el => {
 
 // ─── PRODUCT DATA ───
 const products = [
-  {
-    id: 1, name: 'Aura Pendant', category: 'pendant',
-    price: 12500, oldPrice: 15000,
-    desc: 'Cascading crystal arms with warm-toned LED glow. Perfect for dining spaces.',
-    emoji: '🔆', badge: 'bestseller', isNew: false
-  },
-  {
-    id: 2, name: 'Arc Floor Lamp', category: 'floor',
-    price: 8900, oldPrice: null,
-    desc: 'Minimalist brushed-gold arc lamp with adjustable dimmer and touch control.',
-    emoji: '🕯️', badge: 'new', isNew: true
-  },
-  {
-    id: 3, name: 'Luxe Chandelier', category: 'decorative',
-    price: 28000, oldPrice: 32000,
-    desc: 'Statement piece with 42 hand-blown glass globes. Bespoke installation included.',
-    emoji: '✨', badge: 'sale', isNew: false
-  },
-  {
-    id: 4, name: 'Linear Track', category: 'architectural',
-    price: 5500, oldPrice: null,
-    desc: 'Recessed modular track lighting system for commercial and residential ceilings.',
-    emoji: '💡', badge: 'new', isNew: true
-  },
-  {
-    id: 5, name: 'Smart Globe', category: 'smart',
-    price: 3200, oldPrice: null,
-    desc: 'App-controlled color-temp bulb with circadian rhythm scheduling.',
-    emoji: '🌐', badge: null, isNew: false
-  },
-  {
-    id: 6, name: 'Ember Pendant', category: 'pendant',
-    price: 9800, oldPrice: 11500,
-    desc: 'Hand-blown amber glass pendant with Edison filament. Warm 2200K glow.',
-    emoji: '🔸', badge: 'sale', isNew: false
-  },
-  {
-    id: 7, name: 'Studio Desk Light', category: 'floor',
-    price: 4200, oldPrice: null,
-    desc: 'Architect-style pivoting arm lamp. CRI 95+ for true color rendering.',
-    emoji: '📐', badge: null, isNew: false
-  },
-  {
-    id: 8, name: 'Halo Wall Sconce', category: 'architectural',
-    price: 6700, oldPrice: null,
-    desc: 'Circular backlit wall fixture creating a soft halation effect. IP44 rated.',
-    emoji: '⭕', badge: 'new', isNew: true
-  }
+  // PENDANT LIGHTS
+  { id: 1, name: 'Aura Crystal Pendant', category: 'pendant', price: 12500, oldPrice: 15000, desc: 'Cascading crystal arms with warm-toned LED glow.', image: 'Pendant Lights1.jpeg', badge: 'bestseller' },
+  { id: 2, name: 'Ember Glass Drop', category: 'pendant', price: 9800, oldPrice: 11500, desc: 'Hand-blown amber glass pendant with Edison filament.', image: 'Pendant Lights2.jpeg', badge: 'sale' },
+  { id: 3, name: 'Modern Drop', category: 'pendant', price: 7500, oldPrice: null, desc: 'Elegant vertical drop pendant for modern hallways.', image: 'Pendant Lights3.jpeg', badge: null },
+  { id: 4, name: 'Crystal Sphere', category: 'pendant', price: 13500, oldPrice: null, desc: 'Sophisticated crystal sphere for luxury interiors.', image: 'Pendant Lights4.jpeg', badge: 'new' },
+  { id: 5, name: 'Industrial Loft', category: 'pendant', price: 8200, oldPrice: 9500, desc: 'Classic industrial style with a modern twist.', image: 'Pendant Lights5.jpeg', badge: 'sale' },
+  { id: 6, name: 'Nordic Minimalist', category: 'pendant', price: 6900, oldPrice: null, desc: 'Scandinavian inspired clean lines and warm light.', image: 'Pendant Lights6.jpeg', badge: null },
+  { id: 7, name: 'Gilded Cage', category: 'pendant', price: 11000, oldPrice: 13000, desc: 'Intricate metal mesh cage with gold leaf finish.', image: 'Pendant Lights7.jpeg', badge: 'sale' },
+  { id: 8, name: 'Vintage Lantern', category: 'pendant', price: 8900, oldPrice: null, desc: 'Antique-style lantern with modern LED efficiency.', image: 'Pendant Lights9.jpeg', badge: null },
+  { id: 9, name: 'Chrome Orbit', category: 'pendant', price: 14500, oldPrice: null, desc: 'Futuristic concentric rings in polished chrome.', image: 'Pendant Lights10.jpeg', badge: 'new' },
+  { id: 10, name: 'Opal Globe', category: 'pendant', price: 5500, oldPrice: 6500, desc: 'Soft diffused opal glass for a calming atmosphere.', image: 'Pendant Lights11.jpeg', badge: null },
+  { id: 11, name: 'Black Diamond', category: 'pendant', price: 10200, oldPrice: null, desc: 'Geometric diamond-cut frame in matte black.', image: 'Pendant Lights12.jpeg', badge: null },
+  { id: 12, name: 'Copper Bell', category: 'pendant', price: 7800, oldPrice: 8500, desc: 'Hammered copper finish with a warm internal glow.', image: 'Pendant Lights13.jpeg', badge: 'sale' },
+
+  // FLOOR LAMPS
+  { id: 13, name: 'Arc Floor Lamp', category: 'floor', price: 8900, oldPrice: null, desc: 'Minimalist brushed-gold arc lamp with touch control.', image: 'floorLamp1.jpg', badge: 'new' },
+  { id: 14, name: 'Studio Desk Light', category: 'floor', price: 4200, oldPrice: null, desc: 'Architect-style pivoting arm lamp with high CRI.', image: 'floorlamp2.jpeg', badge: null },
+  { id: 15, name: 'Industrial Tripod', category: 'floor', price: 11200, oldPrice: null, desc: 'Rugged tripod stand with adjustable searchlight head.', image: 'floorlamp3.jpeg', badge: null },
+
+  // DECORATIVE
+  { id: 16, name: 'Luxe Chandelier', category: 'decorative', price: 28000, oldPrice: 32000, desc: 'Statement piece with 42 hand-blown glass globes.', image: 'Decorative1.jpg', badge: 'bestseller' },
+  { id: 17, name: 'Golden Branch', category: 'decorative', price: 35000, oldPrice: 40000, desc: 'Artistic branch-like structure with LED "buds".', image: 'Decorative2.jpeg', badge: 'new' },
+  { id: 18, name: 'Ornate Sconce', category: 'decorative', price: 6700, oldPrice: null, desc: 'Traditional ornate wall sconce for classic halls.', image: 'Decorative3.jpeg', badge: null },
+
+  // ARCHITECTURAL
+  { id: 19, name: 'Linear Track Zoom', category: 'architectural', price: 5500, oldPrice: null, desc: 'Recessed modular track lighting with zoom focus.', image: 'Architectural.png', badge: 'new' },
+  { id: 20, name: 'Halo Wall Sconce', category: 'architectural', price: 6700, oldPrice: null, desc: 'Backlit wall fixture creating soft halation.', image: 'Architectural2.png', badge: 'new' },
+
+  // SMART LIGHTING
+  { id: 21, name: 'Smart Nexus Globe', category: 'smart', price: 3200, oldPrice: null, desc: 'App-controlled color-temp bulb with scheduling.', image: 'smart2.png', badge: 'bestseller' },
+
+  // FALL CEILING LIGHTS
+  { id: 22, name: 'Recessed Pro', category: 'fall-ceiling', price: 1800, oldPrice: 2200, desc: 'Anti-glare recessed light for residential use.', image: 'fall ceiling lights.jpeg', badge: 'bestseller' },
+  { id: 23, name: 'Cove Accent', category: 'fall-ceiling', price: 2400, oldPrice: null, desc: 'Uniform cove lighting for ceiling borders.', image: 'fall ceiling lights1.jpeg', badge: 'new' },
+  { id: 24, name: 'Panel Slim', category: 'fall-ceiling', price: 3500, oldPrice: null, desc: 'Ultra-slim LED panel for clean aesthetics.', image: 'fall ceiling lights2.jpeg', badge: null },
+  { id: 25, name: 'Starry Ceiling', category: 'fall-ceiling', price: 5800, oldPrice: 6500, desc: 'Fiber-optic starry effect for premium rooms.', image: 'fall ceiling lights3.jpeg', badge: 'sale' },
+  { id: 26, name: 'Recessed Zoom', category: 'fall-ceiling', price: 2100, oldPrice: null, desc: 'Adjustable beam angle recessed fixture.', image: 'fall ceiling lights4.jpeg', badge: null },
+  { id: 27, name: 'Square Downlight', category: 'fall-ceiling', price: 1950, oldPrice: 2400, desc: 'Modern square-framed recessed downlight.', image: 'fall ceiling lights6.jpeg', badge: 'sale' },
+  { id: 28, name: 'Linear Slot', category: 'fall-ceiling', price: 4200, oldPrice: null, desc: 'Minimalist linear slot light for seamless lines.', image: 'fall ceiling lights7.jpeg', badge: 'new' },
+  { id: 29, name: 'Directional Spot', category: 'fall-ceiling', price: 2800, oldPrice: null, desc: 'Focus light for artwork or specific zones.', image: 'fall ceiling lights8.jpeg', badge: null },
+  { id: 30, name: 'Deep Recessed', category: 'fall-ceiling', price: 2300, oldPrice: 2900, desc: 'Deep-set LED for ultra-low glare experience.', image: 'fall ceiling lights9.jpeg', badge: 'sale' },
+  { id: 31, name: 'Trimless Edge', category: 'fall-ceiling', price: 3100, oldPrice: null, desc: 'Trimless design for a perfectly flush finish.', image: 'fall ceiling lights10.jpeg', badge: 'new' }
 ];
 
 // ─── RENDER FEATURED PRODUCTS ───
@@ -176,12 +170,11 @@ function renderFeaturedProducts() {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
 
-  const featured = products.slice(0, 4);
+  const featured = products.filter(p => p.badge === 'bestseller' || p.badge === 'new').slice(0, 4);
   grid.innerHTML = featured.map(p => `
     <div class="product-card reveal delay-${featured.indexOf(p) % 4 + 1}" onclick="openModal(${p.id})">
       <div class="product-img-wrap">
-        <img class="product-img" src="abt.jpeg" alt="${p.name}">
-        <div class="product-img-label">Replace with your product image</div>
+        <img class="product-img" src="${p.image}" alt="${p.name}">
         ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : p.badge === 'sale' ? 'sale' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : 'Sale'}</span>` : ''}
         <button class="product-wishlist" onclick="event.stopPropagation(); this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</button>
       </div>
@@ -204,7 +197,14 @@ function renderFeaturedProducts() {
 }
 
 function categoryLabel(cat) {
-  const map = { pendant: 'Pendant Lights', floor: 'Floor Lamps', decorative: 'Decorative', architectural: 'Architectural', smart: 'Smart Lighting' };
+  const map = { 
+    pendant: 'Pendant Lights', 
+    floor: 'Floor Lamps', 
+    decorative: 'Decorative', 
+    architectural: 'Architectural', 
+    smart: 'Smart Lighting',
+    'fall-ceiling': 'Fall Ceiling Lights'
+  };
   return map[cat] || cat;
 }
 
@@ -216,7 +216,7 @@ function openModal(id) {
   const modal = document.getElementById('productModal');
   if (!modal) return;
 
-  modal.querySelector('.modal-img-side').innerHTML = `<span style="font-size:5rem">${product.emoji}</span>`;
+  modal.querySelector('.modal-img-side').innerHTML = `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover;">`;
   modal.querySelector('.modal-product-name').textContent = product.name;
   modal.querySelector('.modal-product-cat').textContent = categoryLabel(product.category);
   modal.querySelector('.modal-product-price').textContent = `₹${product.price.toLocaleString()}`;
@@ -257,8 +257,7 @@ function renderAllProducts() {
   grid.innerHTML = products.map(p => `
     <div class="product-card" data-category="${p.category}" data-price="${p.price}" onclick="openModal(${p.id})">
       <div class="product-img-wrap">
-        <img class="product-img" src="abt.jpeg" alt="${p.name}">
-        <div class="product-img-label">Replace with your product image</div>
+        <img class="product-img" src="${p.image}" alt="${p.name}">
         ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : p.badge === 'sale' ? 'sale' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : 'Sale'}</span>` : ''}
         <button class="product-wishlist" onclick="event.stopPropagation(); this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</button>
       </div>
