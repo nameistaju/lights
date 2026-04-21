@@ -175,7 +175,7 @@ function renderFeaturedProducts() {
     <div class="product-card reveal delay-${featured.indexOf(p) % 4 + 1}" onclick="openModal(${p.id})">
       <div class="product-img-wrap">
         <img class="product-img" src="${p.image}" alt="${p.name}">
-        ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : p.badge === 'sale' ? 'sale' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : 'Sale'}</span>` : ''}
+        ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : ''}</span>` : ''}
         <button class="product-wishlist" onclick="event.stopPropagation(); this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</button>
       </div>
       <div class="product-info">
@@ -183,11 +183,7 @@ function renderFeaturedProducts() {
         <h3 class="product-name">${p.name}</h3>
         <p class="product-desc">${p.desc}</p>
         <div class="product-footer">
-          <div>
-            ${p.oldPrice ? `<span class="product-price-old">₹${p.oldPrice.toLocaleString()}</span>` : ''}
-            <span class="product-price">₹${p.price.toLocaleString()}</span>
-          </div>
-          <button class="btn-view" onclick="event.stopPropagation(); openModal(${p.id})">View Details</button>
+          <button class="btn-view" onclick="event.stopPropagation(); openModal(${p.id})" style="width: 100%;">View Details</button>
         </div>
       </div>
     </div>
@@ -219,7 +215,7 @@ function openModal(id) {
   modal.querySelector('.modal-img-side').innerHTML = `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover;">`;
   modal.querySelector('.modal-product-name').textContent = product.name;
   modal.querySelector('.modal-product-cat').textContent = categoryLabel(product.category);
-  modal.querySelector('.modal-product-price').textContent = `₹${product.price.toLocaleString()}`;
+
   modal.querySelector('.modal-product-desc').textContent = product.desc;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -258,7 +254,7 @@ function renderAllProducts() {
     <div class="product-card" data-category="${p.category}" data-price="${p.price}" onclick="openModal(${p.id})">
       <div class="product-img-wrap">
         <img class="product-img" src="${p.image}" alt="${p.name}">
-        ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : p.badge === 'sale' ? 'sale' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : 'Sale'}</span>` : ''}
+        ${p.badge ? `<span class="product-badge ${p.badge === 'new' ? 'new' : ''}">${p.badge === 'bestseller' ? '★ Best Seller' : p.badge === 'new' ? 'New Arrival' : ''}</span>` : ''}
         <button class="product-wishlist" onclick="event.stopPropagation(); this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</button>
       </div>
       <div class="product-info">
@@ -266,11 +262,7 @@ function renderAllProducts() {
         <h3 class="product-name">${p.name}</h3>
         <p class="product-desc">${p.desc}</p>
         <div class="product-footer">
-          <div>
-            ${p.oldPrice ? `<span class="product-price-old">₹${p.oldPrice.toLocaleString()}</span>` : ''}
-            <span class="product-price">₹${p.price.toLocaleString()}</span>
-          </div>
-          <button class="btn-view" onclick="event.stopPropagation(); openModal(${p.id})">View Details</button>
+          <button class="btn-view" onclick="event.stopPropagation(); openModal(${p.id})" style="width: 100%;">View Details</button>
         </div>
       </div>
     </div>
@@ -283,8 +275,6 @@ function renderAllProducts() {
 function filterProducts() {
   const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase();
   const catVal = document.getElementById('catFilter')?.value || 'all';
-  const priceVal = document.getElementById('priceFilter')?.value || 'all';
-
   const cards = document.querySelectorAll('#allProductsGrid .product-card');
   let visible = 0;
 
@@ -292,16 +282,11 @@ function filterProducts() {
     const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
     const desc = card.querySelector('.product-desc')?.textContent.toLowerCase() || '';
     const cat = card.dataset.category;
-    const price = parseInt(card.dataset.price || 0);
 
     const matchSearch = name.includes(searchVal) || desc.includes(searchVal);
     const matchCat = catVal === 'all' || cat === catVal;
-    let matchPrice = true;
-    if (priceVal === 'under5') matchPrice = price < 5000;
-    else if (priceVal === '5to15') matchPrice = price >= 5000 && price <= 15000;
-    else if (priceVal === 'above15') matchPrice = price > 15000;
 
-    const show = matchSearch && matchCat && matchPrice;
+    const show = matchSearch && matchCat;
     card.style.display = show ? '' : 'none';
     if (show) visible++;
   });
@@ -321,10 +306,8 @@ function updateCount(count) {
 document.addEventListener('DOMContentLoaded', () => {
   const search = document.getElementById('searchInput');
   const catFilter = document.getElementById('catFilter');
-  const priceFilter = document.getElementById('priceFilter');
   if (search) search.addEventListener('input', filterProducts);
   if (catFilter) catFilter.addEventListener('change', filterProducts);
-  if (priceFilter) priceFilter.addEventListener('change', filterProducts);
 });
 
 // ─── SMOOTH ACTIVE NAV HIGHLIGHT ───
